@@ -19,12 +19,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useGetUserQuery } from "./store/api/api";
 import { useEffect } from "react";
 import { setStatus, setToken, setUser } from "./store/slice/userSlice";
+import CommentPostPage from "./pages/commentPostPage.jsx/CommentPostPage";
 function App() {
   const { token } = useSelector((state) => state.user);
-  console.log(token);
   const { data, isLoading, error } = useGetUserQuery(token);
 
-  console.log(data, isLoading, error);
   const dispatch = useDispatch();
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem("token"));
@@ -40,6 +39,10 @@ function App() {
       dispatch(setUser(data.data));
     }
   }, [data]);
+
+  if (isLoading) {
+    return <div>Loading..</div>;
+  }
 
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -59,6 +62,11 @@ function App() {
           <Route
             index
             element={<Latest />}
+          />
+
+          <Route
+            path='post/:id'
+            element={<CommentPostPage />}
           />
         </Route>
 
