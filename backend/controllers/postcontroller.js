@@ -123,18 +123,33 @@ const addPost = async (req, res) => {
 
 const updateLike = async (req, res) => {
   try {
-    var postData = await Post.findOne({_id: req.params.id, likes: req.uId});
-    if (postData) {
-      var index = postData.likes.indexOf(req.uId);
-      postData.likes.splice(index, 1);
-      await postData.save();
-      res.status(200).json({likes: postData.likes.length});
+    var dislikePost = await Post.findOne({
+      _id: req.params.id,
+      dislikes: req.uId,
+    });
+    if (dislikePost) {
+      var index = dislikePost.dislikes.indexOf(req.uId);
+      dislikePost.dislikes.splice(index, 1);
+      await dislikePost.save();
+    }
+    var likePost = await Post.findOne({_id: req.params.id, likes: req.uId});
+    if (likePost) {
+      var index = likePost.likes.indexOf(req.uId);
+      likePost.likes.splice(index, 1);
+      await likePost.save();
+      res.status(200).json({
+        likes: likePost.likes.length,
+        dislikes: likePost.dislikes.length,
+      });
     } else {
-      postData = await Post.findById(req.params.id);
-      postData.likes.push(req.uId);
-      await postData.save();
-      console.log(postData);
-      res.status(200).json({likes: postData.likes.length});
+      likePost = await Post.findById(req.params.id);
+      likePost.likes.push(req.uId);
+      await likePost.save();
+      console.log(likePost);
+      res.status(200).json({
+        likes: likePost.likes.length,
+        dislikes: likePost.dislikes.length,
+      });
     }
   } catch (err) {
     res.status(400).json({message: err.message});
@@ -142,18 +157,33 @@ const updateLike = async (req, res) => {
 };
 const updateDislike = async (req, res) => {
   try {
-    var postData = await Post.findOne({_id: req.params.id, dislikes: req.uId});
-    if (postData) {
-      var index = postData.dislikes.indexOf(req.uId);
-      postData.dislikes.splice(index, 1);
-      await postData.save();
-      res.status(200).json({dislikes: postData.dislikes.length});
+    var likePost = await Post.findOne({_id: req.params.id, likes: req.uId});
+    if (likePost) {
+      var index = likePost.likes.indexOf(req.uId);
+      likePost.likes.splice(index, 1);
+      await likePost.save();
+    }
+    var dislikePost = await Post.findOne({
+      _id: req.params.id,
+      dislikes: req.uId,
+    });
+    if (dislikePost) {
+      var index = dislikePost.dislikes.indexOf(req.uId);
+      dislikePost.dislikes.splice(index, 1);
+      await dislikePost.save();
+      res.status(200).json({
+        likes: dislikePost.likes.length,
+        dislikes: dislikePost.dislikes.length,
+      });
     } else {
-      postData = await Post.findById(req.params.id);
-      postData.dislikes.push(req.uId);
-      await postData.save();
-      console.log(postData);
-      res.status(200).json({dislikes: postData.dislikes.length});
+      dislikePost = await Post.findById(req.params.id);
+      dislikePost.dislikes.push(req.uId);
+      await dislikePost.save();
+      console.log(dislikePost);
+      res.status(200).json({
+        likes: dislikePost.likes.length,
+        dislikes: dislikePost.dislikes.length,
+      });
     }
   } catch (err) {
     res.status(400).json({message: err.message});
