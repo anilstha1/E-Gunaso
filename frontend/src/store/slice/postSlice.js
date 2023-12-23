@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     addedPost: null,
+    recommendedPost:[]
     
 }
 
@@ -14,6 +15,9 @@ const postSlice = createSlice({
 
             state.addedPost = action.payload;
 
+        },
+        setRecommended:(state,action)=>{
+            state.recommendedPost=action.payload;
         }
     }
 
@@ -22,4 +26,4 @@ const postSlice = createSlice({
 
 export default postSlice.reducer;
 
-export const { setPosts } = postSlice.actions; 
+export const { setPosts,setRecommended } = postSlice.actions; 

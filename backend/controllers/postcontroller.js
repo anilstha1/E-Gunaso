@@ -99,14 +99,16 @@ const addPost = async (req, res) => {
       if(response){
         postData.target_office=response.data.relevant_authority;
         const savedPost = await postData.save();
-
+        
         const userData = await User.findById(req.uId);
         userData.posts.push(savedPost._id);
         await userData.save();
+        const addedPost=await Post.findById(savedPost._id).populate("user","name random_name")
         const ids=response.data.recommended_ids;
         ids.pop();
-        const recomendedPost=await Post.find({_id:{$in:ids}})
-        res.status(201).json({addedPost:savedPost,recomendedPost:recomendedPost});
+        const recomendedPost=await Post.find({_id:{$in:ids}}).populate("user","name random_name")
+
+        res.status(201).json({addedPost:addedPost,recomendedPost:recomendedPost});
       }
       else{
         throw new ApiError(400, "failed to add post");

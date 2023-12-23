@@ -18,7 +18,7 @@ import { BsFillFilePostFill } from "react-icons/bs";
 import { useForm, Controller } from "react-hook-form";
 import { useAddPostMutation } from "../../store/api/api";
 import { useSelector, useDispatch } from "react-redux";
-import { setPosts } from "../../store/slice/postSlice";
+import { setPosts, setRecommended } from "../../store/slice/postSlice";
 import { useNavigate } from "react-router-dom";
 function AddPostPageForm() {
   const {
@@ -36,10 +36,13 @@ function AddPostPageForm() {
     addPost({ formData: data, token });
   };
 
+  console.log(data); 
+
   const dispatch = useDispatch();
   useEffect(() => {
     if (data) {
-      dispatch(setPosts(data));
+      dispatch(setPosts(data.addedPost));
+      dispatch(setRecommended(data.recomendedPost))
       navigate("/similarGunaso");
     }
   }, [data]);
