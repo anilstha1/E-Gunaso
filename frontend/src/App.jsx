@@ -20,6 +20,7 @@ import { useGetUserQuery } from "./store/api/api";
 import { useEffect } from "react";
 import { setStatus, setToken, setUser } from "./store/slice/userSlice";
 import CommentPostPage from "./pages/commentPostPage.jsx/CommentPostPage";
+import SearchPage from "./pages/search/SearchPage";
 function App() {
   const { token } = useSelector((state) => state.user);
   const { data, isLoading, error } = useGetUserQuery(token);
@@ -67,6 +68,10 @@ function App() {
           <Route
             path='post/:id'
             element={<CommentPostPage />}
+          />
+          <Route
+            path='/search/:query'
+            element={<SearchPage />}
           />
         </Route>
 

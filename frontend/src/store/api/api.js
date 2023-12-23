@@ -62,6 +62,18 @@ export const api = createApi({
                     }
                 }
             }),
+            postDikes: builder.mutation({
+                query: ({ postId, token }) => {
+                    return {
+                        url: `/posts/updateDislike/${postId}`,
+                        headers: {
+                            'auth-token': token
+                        },
+                        method: "PUT"
+
+                    }
+                }
+            }),
             addPost: builder.mutation({
                 query: ({ formData, token }) => {
                     return {
@@ -109,12 +121,20 @@ export const api = createApi({
                     }
                 }
             }),
-            searchGunaso: builder.mutation({
+            searchGunaso: builder.query({
                 query: (query) => {
                     return {
-                        url: `/posts/searchPost?search=${token}`,
+                        url: `/posts/searchPost?search=${query}`,
                         method: "GET",
 
+                    }
+                }
+            }),
+            getTrendingPost: builder.query({
+                query: (query) => {
+                    return {
+                        url: `/posts/trending`,
+                        method: "GET"
                     }
                 }
             })
@@ -123,4 +143,4 @@ export const api = createApi({
     }
 })
 
-export const { useGetUserQuery, useLoginUserMutation, useRegisterUserMutation, useGetPostsQuery, usePostLikesMutation, useAddPostMutation, useGetPostQuery, useGetPostCommentQuery, useAddPostCommentMutation } = api;
+export const { useGetUserQuery, useLoginUserMutation, useRegisterUserMutation, useGetPostsQuery, usePostLikesMutation, useAddPostMutation, useGetPostQuery, useGetPostCommentQuery, useAddPostCommentMutation, useSearchGunasoQuery, usePostDikesMutation, useGetTrendingPostQuery } = api;

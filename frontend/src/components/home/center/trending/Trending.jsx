@@ -1,12 +1,17 @@
 import React from "react";
 import { TrendingPostDiv } from "./style";
-import posts from "../../../../data/post";
 import SinglePost from "../../../singlePost/SinglePost";
+import { useGetTrendingPostQuery } from "../../../../store";
 
 function Trending() {
+  const { data, isLoading, error } = useGetTrendingPostQuery();
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
   return (
     <TrendingPostDiv>
-      {posts.map((post) => {
+      {data.map((post) => {
         return (
           <SinglePost
             post={post}

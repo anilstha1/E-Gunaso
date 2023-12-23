@@ -26,6 +26,8 @@ import { BiSolidDownvote } from "react-icons/bi";
 import { usePostLikesMutation } from "../../store/api/api";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import NotLoggedIn from "../like/NotLoggedIn";
+import LoggedInLike from "../like/LoggedInLike";
 function SinglePost({ post }) {
   const {
     _id,
@@ -36,33 +38,12 @@ function SinglePost({ post }) {
     post: desc,
     createdAt,
     comments,
+    dislikes,
   } = post;
-  const [support, setSupport] = useState(false);
-  const [noSupport, setNoSupport] = useState(false);
-  const [updateLike, likeStatus] = usePostLikesMutation();
-  const token = useSelector((state) => state.user.token);
-  const [like, setLikes] = useState(likes.length);
-  const { isLoading, data, error } = likeStatus;
 
-  if (isLoading) {
-    return <div>loding..</div>;
-  }
+  const userStatus = useSelector((state) => state.user.status);
+
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (data) {
-      setLikes(data.likes);
-    }
-  }, [data]);
-
-  useEffect(() => {
-    likes.forEach((item) => {
-    //   if (item === userId) {
-    //     setSupport(true);
-    //     return;
-    //   }
-    });
-  }, []);
 
   const time = calculateDateDifference(createdAt);
   return (
@@ -89,27 +70,15 @@ function SinglePost({ post }) {
       <Title>{title}</Title>
       <Description>{desc}</Description>
       <LikeAndComment>
-        <LikeDiv>
-          <IconDiv
-            disabled={support}
-            onClick={() => {
-              setSupport(true);
-              setNoSupport(false);
-              updateLike({ postId: _id, token });
-            }}
-          >
-            {support ? <BiSolidUpvote /> : <BiUpvote />}
-          </IconDiv>
-          <span>{like} </span>
-          <IconDiv
-            onClick={() => {
-              setNoSupport(true);
-              setSupport(false);
-            }}
-          >
-            {noSupport ? <BiSolidDownvote /> : <BiDownvote />}
-          </IconDiv>
-        </LikeDiv>
+        {!userStatus ? (
+          <NotLoggedIn likes={likes} />
+        ) : (
+          <LoggedInLike
+            _id={_id}
+            likes={likes}
+            dislikes={dislikes}
+          />
+        )}
         <CommentDiv>
           <ViewCommentButton
             onClick={() => {

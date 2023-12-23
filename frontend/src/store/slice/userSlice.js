@@ -4,7 +4,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     token: null,
     status: false,
-    user: null
+    user: null,
+    searchText: ""
 
 }
 
@@ -36,7 +37,11 @@ const userSlice = createSlice({
         },
         removeTokenInLocalStorage: (state, action) => {
             localStorage.removeItem("token");
+        },
+        setSearchString: (state, action) => {
+            state.searchText = action.payload;
         }
+
 
 
 
@@ -45,4 +50,4 @@ const userSlice = createSlice({
 
 
 export default userSlice.reducer;
-export const { setStatus, setToken, removeToken, removeStatus, setUser, removeUser, setTokenInLocalStorage, removeTokenInLocalStorage } = userSlice.actions;
+export const { setStatus, setToken, removeToken, removeStatus, setUser, removeUser, setTokenInLocalStorage, removeTokenInLocalStorage, setSearchString } = userSlice.actions;

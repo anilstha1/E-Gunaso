@@ -4,9 +4,15 @@ import styled from "styled-components";
 export const HomeLeftDiv = styled.div`
 width:15%;
 border-right:2px solid ${props => props.theme.border};
+
+
+
 `
 export const TopMostDiv = styled.div`
 margin-top:2rem;
+position:fixed;
+top:60px;
+bottom: 0;
 `
 
 export const LinkList = styled.li`

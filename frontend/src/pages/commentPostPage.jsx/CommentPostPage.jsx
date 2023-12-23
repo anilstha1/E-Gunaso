@@ -31,7 +31,6 @@ function CommentPostPage() {
     }
   }, [commentData]);
 
-  console.log(postData);
 
   if (postLoading || isCommentLoading) {
     return <div>Loading...</div>;

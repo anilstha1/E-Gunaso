@@ -7,11 +7,19 @@ import {
 } from "./style";
 import { FaSearch } from "react-icons/fa";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+
+import { useDispatch } from "react-redux";
+import { setSearchString } from "../../../store";
 function SearchBar() {
   const { register, handleSubmit } = useForm();
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const onSubmit = (data) => {
-    // Handle your search logic here using the data object
-    console.log(data.searchQuery);
+    dispatch(setSearchString(data.searchQuery));
+    navigate(`/search/${data.searchQuery}`);
   };
   return (
     <SearchBarDiv>
