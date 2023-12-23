@@ -6,17 +6,13 @@ import BigLoading from "../../../loading/BigLoading";
 
 function Latest() {
   const { data, isLoading, error } = useGetPostsQuery();
-console.log(data)
   if (isLoading) {
-    return (
-      <LatestDiv>
-        <BigLoading />
-      </LatestDiv>
-    );
+    return <LatestDiv>Loading...</LatestDiv>;
   }
+
   return (
     <LatestDiv>
-      {data.map((post) => {
+      {data?.map((post) => {
         return (
           <SinglePost
             post={post}

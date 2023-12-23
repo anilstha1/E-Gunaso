@@ -10,6 +10,7 @@ import {
   Label,
   Option,
   PostButton,
+
   Select,
   TopDiv,
   TopLeftDiv,
@@ -40,6 +41,7 @@ function AddPostPageForm() {
       dispatch(setPosts(data));
     }
   }, [data]);
+
 
   return (
     <AddPostFormDiv>

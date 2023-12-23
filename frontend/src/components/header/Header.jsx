@@ -7,7 +7,6 @@ import UserBox from "./userbox/Usebox";
 
 function Header() {
   const { status } = useSelector((state) => state.user);
-  console.log(status);
 
   return (
     <OuterMostDiv>

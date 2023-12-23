@@ -43,8 +43,10 @@ function SinglePost({ post }) {
   const token = useSelector((state) => state.user.token);
   const [like, setLikes] = useState(likes.length);
   const { isLoading, data, error } = likeStatus;
-  const { _id: userId } = useSelector((state) => state?.user?.user);
 
+  if (isLoading) {
+    return <div>loding..</div>;
+  }
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -55,10 +57,10 @@ function SinglePost({ post }) {
 
   useEffect(() => {
     likes.forEach((item) => {
-      if (item === userId) {
-        setSupport(true);
-        return;
-      }
+    //   if (item === userId) {
+    //     setSupport(true);
+    //     return;
+    //   }
     });
   }, []);
 
