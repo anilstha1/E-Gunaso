@@ -5,7 +5,7 @@ const ApiError = require("../utils/ApiError");
 
 const getPost = async (req, res) => {
   try {
-    const postData = await Post.findById(req.params.id)
+    var postData = await Post.findById(req.params.id)
       .populate("user", "name")
       .sort({createdAt: -1});
     if (postData.isanonymous) {
@@ -62,7 +62,7 @@ const getTrendingPosts = async (req, res) => {
   try {
     var postData = await Post.find()
       .populate("user", "name random_name")
-      .sort({"comments.length": -1})
+      .sort({likes: -1})
       .limit(10);
     console.log(postData);
     res.status(200).json(postData);
