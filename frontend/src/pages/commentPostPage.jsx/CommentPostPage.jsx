@@ -31,7 +31,7 @@ function CommentPostPage() {
     }
   }, [commentData]);
 
-  console.log("comment", comment);
+  console.log(postData);
 
   if (postLoading || isCommentLoading) {
     return <div>Loading...</div>;
@@ -46,7 +46,12 @@ function CommentPostPage() {
         <CommentForm id={id} />
         <UserCommentDiv>
           {comment?.map((item) => {
-            return <Comment comment={item} />;
+            return (
+              <Comment
+                comment={item}
+                key={item._id}
+              />
+            );
           })}
         </UserCommentDiv>
       </CommentDiv>
