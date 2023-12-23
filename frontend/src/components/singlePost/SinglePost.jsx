@@ -25,8 +25,18 @@ import { BiSolidUpvote } from "react-icons/bi";
 import { BiSolidDownvote } from "react-icons/bi";
 import { usePostLikesMutation } from "../../store/api/api";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 function SinglePost({ post }) {
-  const { _id, user, status, title, likes, post: desc, createdAt } = post;
+  const {
+    _id,
+    user,
+    status,
+    title,
+    likes,
+    post: desc,
+    createdAt,
+    comments,
+  } = post;
   const [support, setSupport] = useState(false);
   const [noSupport, setNoSupport] = useState(false);
   const [updateLike, likeStatus] = usePostLikesMutation();
@@ -34,6 +44,8 @@ function SinglePost({ post }) {
   const [like, setLikes] = useState(likes.length);
   const { isLoading, data, error } = likeStatus;
   const { _id: userId } = useSelector((state) => state?.user?.user);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (data) {
@@ -50,7 +62,6 @@ function SinglePost({ post }) {
     });
   }, []);
 
-  console.log(_id);
   const time = calculateDateDifference(createdAt);
   return (
     <CardContainer>
@@ -98,11 +109,15 @@ function SinglePost({ post }) {
           </IconDiv>
         </LikeDiv>
         <CommentDiv>
-          <ViewCommentButton>
+          <ViewCommentButton
+            onClick={() => {
+              navigate(`/post/${_id}`);
+            }}
+          >
             <IconDiv>
               {" "}
               <LiaComments />
-              18 comments
+              {comments.length} comments
             </IconDiv>
           </ViewCommentButton>
         </CommentDiv>

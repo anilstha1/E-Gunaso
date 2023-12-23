@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   AddPostForm,
   AddPostFormDiv,
@@ -10,10 +10,6 @@ import {
   Label,
   Option,
   PostButton,
-  RadioButtonLabel,
-  RadioButtonWrapper,
-  RadioGroup,
-  RadioInput,
   Select,
   TopDiv,
   TopLeftDiv,
@@ -21,7 +17,8 @@ import {
 import { BsFillFilePostFill } from "react-icons/bs";
 import { useForm, Controller } from "react-hook-form";
 import { useAddPostMutation } from "../../store/api/api";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setPosts } from "../../store/slice/postSlice";
 function AddPostPageForm() {
   const {
     handleSubmit,
@@ -34,10 +31,15 @@ function AddPostPageForm() {
   const { isLoading, data, error } = status;
   const token = useSelector((state) => state.user.token);
   const onSubmit = (data) => {
-    data.anonymous = Boolean(data.anonymous);
-    console.log(data);
-    // addPost({ formData: data, token });
+    addPost({ formData: data, token });
   };
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (data) {
+      dispatch(setPosts(data));
+    }
+  }, [data]);
 
   return (
     <AddPostFormDiv>
@@ -69,41 +71,18 @@ function AddPostPageForm() {
         </FormGroup>
 
         <FormGroup>
-          <Label>Gender:</Label>
-          <RadioButtonWrapper>
-            <RadioButtonLabel>
-              <Controller
-                name='gender'
-                control={control}
-                defaultValue='male'
-                render={({ field }) => (
-                  <input
-                    type='radio'
-                    value='male'
-                    {...field}
-                    id='male'
-                  />
-                )}
-              />
-              Male
-            </RadioButtonLabel>
-            <RadioButtonLabel>
-              <Controller
-                name='gender'
-                control={control}
-                defaultValue='female'
-                render={({ field }) => (
-                  <input
-                    type='radio'
-                    value='female'
-                    {...field}
-                    id='female'
-                  />
-                )}
-              />
-              Female
-            </RadioButtonLabel>
-          </RadioButtonWrapper>
+          <Label>Do you want to post this gunaso anonymously? </Label>
+          <Select
+            {...register("anonymous", {
+              required: "Data  is required",
+            })}
+          >
+            <Option value='true'>True</Option>
+            <Option value='false'>False</Option>
+          </Select>
+          {errors.gender && (
+            <ErrorMessage>{errors.gender.message}</ErrorMessage>
+          )}
         </FormGroup>
         <BottomDiv>
           <PostButton>Post</PostButton>
