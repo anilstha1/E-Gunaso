@@ -1,0 +1,8 @@
+uvicorn
+fastapi
+nltk
+numpy
+torchtext
+pandas
+pinecone-client
+python-dotenv
