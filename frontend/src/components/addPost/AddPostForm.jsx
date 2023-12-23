@@ -10,7 +10,6 @@ import {
   Label,
   Option,
   PostButton,
-
   Select,
   TopDiv,
   TopLeftDiv,
@@ -20,6 +19,7 @@ import { useForm, Controller } from "react-hook-form";
 import { useAddPostMutation } from "../../store/api/api";
 import { useSelector, useDispatch } from "react-redux";
 import { setPosts } from "../../store/slice/postSlice";
+import { useNavigate } from "react-router-dom";
 function AddPostPageForm() {
   const {
     handleSubmit,
@@ -27,6 +27,7 @@ function AddPostPageForm() {
     formState: { errors },
     control,
   } = useForm();
+  const navigate = useNavigate();
 
   const [addPost, status] = useAddPostMutation();
   const { isLoading, data, error } = status;
@@ -39,9 +40,9 @@ function AddPostPageForm() {
   useEffect(() => {
     if (data) {
       dispatch(setPosts(data));
+      navigate("/similarGunaso");
     }
   }, [data]);
-
 
   return (
     <AddPostFormDiv>

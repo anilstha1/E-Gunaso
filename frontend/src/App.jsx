@@ -21,6 +21,7 @@ import { useEffect } from "react";
 import { setStatus, setToken, setUser } from "./store/slice/userSlice";
 import CommentPostPage from "./pages/commentPostPage.jsx/CommentPostPage";
 import SearchPage from "./pages/search/SearchPage";
+import RelatedPostPage from "./pages/relatedPost/RelatedPostPage";
 function App() {
   const { token } = useSelector((state) => state.user);
   const { data, isLoading, error } = useGetUserQuery(token);
@@ -72,6 +73,10 @@ function App() {
           <Route
             path='/search/:query'
             element={<SearchPage />}
+          />
+          <Route
+            path='/similarGunaso'
+            element={<RelatedPostPage />}
           />
         </Route>
 

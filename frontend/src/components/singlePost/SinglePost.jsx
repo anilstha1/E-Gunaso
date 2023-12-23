@@ -19,11 +19,7 @@ import {
 import avatar from "../../assets/profile.png";
 import calculateDateDifference from "../../utilis/DateDiff";
 import { LiaComments } from "react-icons/lia";
-import { BiUpvote } from "react-icons/bi";
-import { BiDownvote } from "react-icons/bi";
-import { BiSolidUpvote } from "react-icons/bi";
-import { BiSolidDownvote } from "react-icons/bi";
-import { usePostLikesMutation } from "../../store/api/api";
+
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import NotLoggedIn from "../like/NotLoggedIn";
@@ -40,6 +36,9 @@ function SinglePost({ post }) {
     comments,
     dislikes,
   } = post;
+  const commentInStore = useSelector((state) => state.comment.comment);
+
+  console.log(commentInStore?.length);
 
   const userStatus = useSelector((state) => state.user.status);
 

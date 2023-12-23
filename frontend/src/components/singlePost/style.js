@@ -5,7 +5,6 @@ export const CardContainer = styled.div`
   padding: 16px;
   margin: 16px;
   width: 90%;
-  border-radius: 8px;
 `;
 
 export const UserSection = styled.div`

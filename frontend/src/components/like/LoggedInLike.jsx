@@ -11,7 +11,7 @@ import { usePostDikesMutation, usePostLikesMutation } from "../../store";
 function LoggedInLike({ _id, likes, dislikes }) {
   const [rightArrow, setRightArrow] = useState(false);
   const [leftArrow, setLeftArrow] = useState(false);
-  const [noOfLike, setNoOfLike] = useState(likes.length);
+  const [noOfLike, setNoOfLike] = useState(likes.length - dislikes.length);
 
   const token = useSelector((state) => state.user.token);
   const [likePost, likeStatus] = usePostLikesMutation();
@@ -35,15 +35,17 @@ function LoggedInLike({ _id, likes, dislikes }) {
   useEffect(() => {
     if (likeData) {
       console.log(likeData);
-      setNoOfLike(noOfLike + 1);
+      setNoOfLike(likeData.likes - likeData.dislikes);
       setRightArrow(!rightArrow);
       setLeftArrow(false);
     }
   }, [likeData]);
 
+  console.log(dislikeData, likeData);
+
   useEffect(() => {
     if (dislikeData) {
-      setNoOfLike(noOfLike - 1);
+      setNoOfLike(dislikeData.likes - dislikeData.dislikes);
       setLeftArrow(!leftArrow);
       setRightArrow(false);
     }
