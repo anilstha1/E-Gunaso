@@ -5,7 +5,9 @@ const getComments = async (req, res) => {
   try {
     commentData = await Comment.find({
       post: req.params.id,
-    });
+    })
+      .populate("user", "random_name")
+      .sort({createdAt: -1});
     console.log(commentData);
     res.status(200).json(commentData);
   } catch (err) {
