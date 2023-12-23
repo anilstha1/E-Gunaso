@@ -108,6 +108,15 @@ export const api = createApi({
                         body: formData
                     }
                 }
+            }),
+            searchGunaso: builder.mutation({
+                query: (query) => {
+                    return {
+                        url: `/posts/searchPost?search=${token}`,
+                        method: "GET",
+
+                    }
+                }
             })
 
         }

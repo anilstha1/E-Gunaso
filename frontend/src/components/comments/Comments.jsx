@@ -13,7 +13,6 @@ import calculateDateDifference from "../../utilis/DateDiff";
 
 const Comment = ({ comment }) => {
   const { user, comment: commentText, createdAt } = comment;
-  console.log(comment);
   const time = calculateDateDifference(createdAt);
   return (
     <CommentContainer>
