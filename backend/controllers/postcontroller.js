@@ -5,7 +5,7 @@ const ApiError = require("../utils/ApiError");
 
 const getPost = async (req, res) => {
   try {
-    const postData = await Post.findById(req.params.id)
+    var postData = await Post.findById(req.params.id)
       .populate("user", "name")
       .sort({createdAt: -1});
     if (postData.isanonymous) {
