@@ -1,5 +1,6 @@
 const Comment = require("../models/comment");
 const Post = require("../models/post");
+const User = require("../models/user");
 
 const getComments = async (req, res) => {
   try {
@@ -32,6 +33,11 @@ const addComment = async (req, res) => {
     if (commentData) {
       postData.comments.push(commentData._id);
       await postData.save();
+
+      const userData = await User.findById(req.uId).select("random_name");
+      console.log(userData);
+      commentData.user = userData;
+      console.log(commentData);
       res.status(200).json(commentData);
     } else {
       throw new Error("something went wrong");

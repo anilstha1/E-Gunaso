@@ -25,6 +25,9 @@ const addUser = async (req, res) => {
     });
     const savedUser = await userData.save();
     const token = await savedUser.generateAccessToken();
+
+    console.log(token);
+
     if (token) {
       return res
         .status(201)
@@ -80,7 +83,7 @@ const login = async (req, res) => {
     if (token) {
       return res
         .status(201)
-        .json(new ApiResponse(200, token, "User logged in Successfully"));
+        .json(new ApiResponse(200, token, "User is created Successfully"));
     } else {
       throw new ApiError(500, "Error while login user");
     }
@@ -117,4 +120,4 @@ const deleteUser = async (req, res) => {
   }
 };
 
-module.exports = { addUser, getUser, login, updateUser, deleteUser };
+module.exports = {addUser, getUser, login, updateUser, deleteUser};

@@ -26,6 +26,9 @@ var PostSchema = new mongoose.Schema(
     likes: [
       {type: mongoose.Schema.Types.ObjectId, ref: "users", required: true},
     ],
+    dislikes: [
+      {type: mongoose.Schema.Types.ObjectId, ref: "users", required: true},
+    ],
     comments: [
       {type: mongoose.Schema.Types.ObjectId, ref: "comments", required: true},
     ],
