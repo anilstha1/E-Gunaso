@@ -86,33 +86,36 @@ const addPost = async (req, res) => {
       status,
     });
 
-    // const postdata = {
-    //   id: postData._id,
-    //   complaint: title + " " + post,
-    // };
-    const savedPost = await postData.save();
-    if (savedPost) {
-      // const url = "http://127.0.0.1:8000/analysis/";
-      // const response=await axios.post(url,postdata)
-      // console.log(response)
+    const postdata = {
+      id: postData._id,
+      complaint: title + " " + post,
+    };
+    // const savedPost = await postData.save();
+    if (postData) {
+      const url = "http://127.0.0.1:8000/analysis/";
+      const response=await axios.post(url,postdata)
+      console.log(response)
 
-      // if(response){
-      //   postData.target_office=response.data.relevant_authority;
-      //   const savedPost = await postData.save();
+      if(response){
+        postData.target_office=response.data.relevant_authority;
+        const savedPost = await postData.save();
 
-      //   const userData = await User.findById(req.uId);
-      //   userData.posts.push(savedPost._id);
-      //   await userData.save();
-      //   res.status(201).json(savedPost);
-      // }
-      // else{
-      //   throw new ApiError(400, "failed to add post");
-      // }
+        const userData = await User.findById(req.uId);
+        userData.posts.push(savedPost._id);
+        await userData.save();
+        const ids=response.data.recommended_ids;
+        ids.pop();
+        const recomendedPost=await Post.find({_id:{$in:ids}})
+        res.status(201).json({addedPost:savedPost,recomendedPost:recomendedPost});
+      }
+      else{
+        throw new ApiError(400, "failed to add post");
+      }
 
-      const userData = await User.findById(req.uId);
-      userData.posts.push(savedPost._id);
-      await userData.save();
-      res.status(201).json(savedPost);
+      // const userData = await User.findById(req.uId);
+      // userData.posts.push(savedPost._id);
+      // await userData.save();
+      // res.status(201).json(savedPost);
     } else {
       throw new ApiError(400, "failed to add post");
     }
