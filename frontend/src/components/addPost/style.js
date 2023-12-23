@@ -79,7 +79,7 @@ width:100%;
 border:none;
 padding:1rem 2rem;
 border:1px solid ${props => props.theme.border};
-background-color:${props => props.theme.component};
+background-color:${props => props.theme.background};
 `
 
 export const Option = styled.option``
