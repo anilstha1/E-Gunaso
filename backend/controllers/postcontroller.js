@@ -50,7 +50,7 @@ const searchPosts = async (req, res) => {
       post: {$regex: req.query.search, $options: "i"},
     })
       .populate("user", "name random_name")
-      .sort({createdAt: -1});
+      .limit(10);
     console.log(postData);
     res.status(200).json(postData);
   } catch (err) {
@@ -60,9 +60,10 @@ const searchPosts = async (req, res) => {
 
 const getTrendingPosts = async (req, res) => {
   try {
-    var postData = await Post.find([{$sample: {size: 1}}])
+    var postData = await Post.find()
       .populate("user", "name random_name")
-      .sort({createdAt: -1});
+      .sort({"comments.length": -1})
+      .limit(10);
     console.log(postData);
     res.status(200).json(postData);
   } catch (err) {
@@ -146,7 +147,7 @@ const updateDislike = async (req, res) => {
       var index = postData.dislikes.indexOf(req.uId);
       postData.dislikes.splice(index, 1);
       await postData.save();
-      res.status(200).json({dislikes: postData.dsilikes.length});
+      res.status(200).json({dislikes: postData.dislikes.length});
     } else {
       postData = await Post.findById(req.params.id);
       postData.dislikes.push(req.uId);
