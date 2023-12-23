@@ -62,7 +62,7 @@ const getTrendingPosts = async (req, res) => {
   try {
     var postData = await Post.find()
       .populate("user", "name random_name")
-      .sort({"comments.length": -1})
+      .sort({likes: -1})
       .limit(10);
     console.log(postData);
     res.status(200).json(postData);
