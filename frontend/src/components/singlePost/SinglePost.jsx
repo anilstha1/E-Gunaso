@@ -9,6 +9,7 @@ import {
   LikeDiv,
   NameDateDiv,
   Status,
+  TargeOfficeText,
   TimeDiv,
   Title,
   UserInfo,
@@ -35,6 +36,7 @@ function SinglePost({ post }) {
     createdAt,
     comments,
     dislikes,
+    target_office
   } = post;
   const commentInStore = useSelector((state) => state.comment.comment);
 
@@ -64,7 +66,13 @@ function SinglePost({ post }) {
             </TimeDiv>
           </NameDateDiv>
         </UserInfo>
+        <div>
         <Status status={status}>{status}</Status>
+        <TargeOfficeText>
+          {target_office}
+        </TargeOfficeText>
+
+        </div>
       </UserSection>
       <Title>{title}</Title>
       <Description>{desc}</Description>

@@ -11,6 +11,8 @@ function Latest() {
   }
 
   return (
+    <>
+    <h1 style={{marginLeft:"2rem",marginTop:"2rem"}}>Recent Posts</h1>
     <LatestDiv>
       {data?.map((post) => {
         return (
@@ -21,6 +23,7 @@ function Latest() {
         );
       })}
     </LatestDiv>
+    </> 
   );
 }
 

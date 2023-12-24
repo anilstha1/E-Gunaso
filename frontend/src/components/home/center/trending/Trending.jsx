@@ -10,6 +10,9 @@ function Trending() {
     return <div>Loading...</div>;
   }
   return (
+    <>
+        <h1 style={{marginLeft:"2rem",marginTop:"2rem"}}>Trending</h1>
+ 
     <TrendingPostDiv>
       {data.map((post) => {
         return (
@@ -20,6 +23,7 @@ function Trending() {
         );
       })}
     </TrendingPostDiv>
+    </> 
   );
 }
 

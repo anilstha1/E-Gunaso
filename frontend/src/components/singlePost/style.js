@@ -92,3 +92,9 @@ gap:2rem;
 export const CommentDiv = styled.div`
 
 `
+export const TargeOfficeText=styled.div`
+margin-top:1rem;
+font-size:1rem;
+background:#eee;
+padding:.5rem 1rem;
+`

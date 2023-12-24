@@ -13,7 +13,6 @@ function HomePage() {
         <Outlet />
       </CenterDiv>
       <HomeRight />
-      <BigLoading/> 
     </HomePageDiv>
   );
 }

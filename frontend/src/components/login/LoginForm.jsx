@@ -39,6 +39,7 @@ const LoginForm = () => {
       dispatch(setToken(data.data));
       dispatch(setStatus(true));
       dispatch(setTokenInLocalStorage());
+      navigate("/")
     }
   }, [data]);
 

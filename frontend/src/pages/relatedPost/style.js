@@ -10,4 +10,5 @@ export const RelatedPostDiv=styled.div``
 
 export const SimilarPostHeading=styled.h2`
 margin-left:2rem;
+font-size:3rem;
 `
