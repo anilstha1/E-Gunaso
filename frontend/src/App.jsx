@@ -22,6 +22,7 @@ import { setStatus, setToken, setUser } from "./store/slice/userSlice";
 import CommentPostPage from "./pages/commentPostPage.jsx/CommentPostPage";
 import SearchPage from "./pages/search/SearchPage";
 import RelatedPostPage from "./pages/relatedPost/RelatedPostPage";
+import BigLoading from "./components/loading/BigLoading";
 function App() {
   const { token } = useSelector((state) => state.user);
   const { data, isLoading, error } = useGetUserQuery(token);
@@ -42,9 +43,6 @@ function App() {
     }
   }, [data]);
 
-  if (isLoading) {
-    return <div>Loading..</div>;
-  }
 
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -98,7 +96,9 @@ function App() {
   );
   return (
     <ThemeProvider theme={lightThemeColors}>
-      <RouterProvider router={router} />
+    {
+      isLoading?<div><BigLoading/></div>: <RouterProvider router={router} /> 
+    }
       <GlobalStyle />
     </ThemeProvider>
   );

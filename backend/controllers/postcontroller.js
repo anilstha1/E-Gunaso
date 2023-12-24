@@ -2,6 +2,31 @@ const axios  = require("axios");
 const Post = require("../models/post");
 const User = require("../models/user");
 const ApiError = require("../utils/ApiError");
+const transporter= require("../utils/sendEmail");
+
+
+const sendEmail = async (name,title,description,emailId) => {
+
+  try {
+      
+          const info = await transporter.sendMail({
+
+            from: {
+              name: name,
+              address: "udemycourse322@gmail.com"
+          },
+          to: emailId,
+          subject: title,
+          text: description,
+          html:`<h1>${description}</h1>`
+
+          });
+
+  } catch (error) {
+    console.log(error);
+  }
+
+}
 
 const getPost = async (req, res) => {
   try {
@@ -107,6 +132,16 @@ const addPost = async (req, res) => {
         const ids=response.data.recommended_ids;
         ids.pop();
         const recomendedPost=await Post.find({_id:{$in:ids}}).populate("user","name random_name")
+      let email;
+        if(savedPost.target_office==="foreign_ministry"){
+          email="foreign.ministry11@gmail.com"
+        }else if(savedPost.target_office==="health_ministry"){
+          email="health.ministry11@gmail.com"
+        }else if(savedPost.target_office==="education_ministry"){
+          email="education.ministry11@gmail.com"
+        }
+
+        sendEmail(addedPost.user.name,savedPost.title,savedPost.post,email); 
 
         res.status(201).json({addedPost:addedPost,recomendedPost:recomendedPost});
       }
@@ -229,6 +264,11 @@ const deletePost = async (req, res) => {
     res.status(400).json({message: err.message});
   }
 };
+
+
+
+
+
 
 module.exports = {
   getPost,

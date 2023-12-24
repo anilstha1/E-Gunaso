@@ -4,6 +4,7 @@ import HomeLeft from "../../components/home/left/HomeLeft";
 
 import HomeRight from "../../components/home/right/HomeRight";
 import { Outlet } from "react-router-dom";
+import BigLoading from "../../components/loading/BigLoading";
 function HomePage() {
   return (
     <HomePageDiv>
@@ -12,6 +13,7 @@ function HomePage() {
         <Outlet />
       </CenterDiv>
       <HomeRight />
+      <BigLoading/> 
     </HomePageDiv>
   );
 }
